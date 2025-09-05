@@ -47,3 +47,4 @@ print("\nData split into training and testing sets.")
 print(f"Training set size: {X_train.shape[0]} records")
 print(f"Testing set size: {X_test.shape[0]} records")
 
+

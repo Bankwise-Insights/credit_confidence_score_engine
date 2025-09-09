@@ -11,9 +11,22 @@ import joblib
 if __name__ == '__main__':
     # --- Argument Parsing ---
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model-dir', type=str, default=os.environ.get('SM_MODEL_DIR'))
-    parser.add_argument('--train', type=str, default=os.environ.get('SM_CHANNEL_TRAIN'))
+    parser.add_argument('--model-dir', type=str, default=os.environ.get('SM_MODEL_DIR', '/opt/ml/model'))
+    parser.add_argument('--train', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train'))
     args, _ = parser.parse_known_args()
+
+    # Debug print to see what we're getting
+    print(f"SM_MODEL_DIR: {os.environ.get('SM_MODEL_DIR')}")
+    print(f"SM_CHANNEL_TRAIN: {os.environ.get('SM_CHANNEL_TRAIN')}")
+    print(f"args.model_dir: {args.model_dir}")
+    print(f"args.train: {args.train}")
+    
+    # Check if the training directory exists
+    if args.train and os.path.exists(args.train):
+        print(f"Training directory exists: {args.train}")
+        print(f"Contents: {os.listdir(args.train)}")
+    else:
+        print(f"Training directory does not exist: {args.train}")
 
     # --- 1. Data Loading and Preprocessing ---
     print("--- Step 1: Data Loading and Preprocessing ---")

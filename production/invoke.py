@@ -48,11 +48,11 @@ def invoke_bulk_recommendations():
         
         print("Successfully received batch response.\n")
         
-        # MODIFIED: Loop through the 'results' list in the response
+        # Loop through the 'results' list in the response
         if 'results' in response_json and isinstance(response_json['results'], list):
             for i, result in enumerate(response_json['results']):
                 print(f"--- Result for Applicant {i+1} ---")
-                predicted_score = result.get('predicted_credit_score', 'N/A')
+                predicted_score = result.get('credit_score', 'N/A')
                 print(f"Predicted Credit Score: {predicted_score}\n")
                 print(result.get('recommendation', 'No recommendation found in response.'))
                 print("-" * 30 + "\n")

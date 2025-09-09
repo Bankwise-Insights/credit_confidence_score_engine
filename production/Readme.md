@@ -1,28 +1,28 @@
-End-to-End Loan Recommendation Engine with SageMaker and Gemini
+# End-to-End Loan Recommendation Engine with SageMaker and Gemini
 This project demonstrates a complete MLOps workflow for deploying a sophisticated loan recommendation engine on AWS. The architecture combines a classical machine learning model for credit scoring with a generative AI model (Google's Gemini) for detailed, human-readable loan analysis and recommendation.
 
 The entire system is packaged into a custom Docker container and deployed as a scalable, cost-effective SageMaker Serverless Endpoint.
 
-Final Architecture
+## Final Architecture
 The final architecture is streamlined for simplicity and performance:
 
-Client Application: A client (e.g., invoke.py) sends a batch of loan applications in JSON format to the SageMaker Endpoint.
+**Client Application:** A client (e.g., invoke.py) sends a batch of loan applications in JSON format to the SageMaker Endpoint.
 
-SageMaker Serverless Endpoint: A fully managed, auto-scaling endpoint that hosts our custom Docker container.
+**SageMaker Serverless Endpoint:** A fully managed, auto-scaling endpoint that hosts our custom Docker container.
 
-Custom Docker Container:
+**Custom Docker Container:**
 
-Contains a FastAPI web server (predictor.py) to handle inference requests.
+1. Contains a FastAPI web server (predictor.py) to handle inference requests.
 
-Loads a pre-trained scikit-learn model (model.joblib) to predict a credit score for each applicant.
+2 . Loads a pre-trained scikit-learn model (model.joblib) to predict a credit score for each applicant.
 
-Uses the predicted score and the original applicant data to construct a detailed prompt.
+3. Uses the predicted score and the original applicant data to construct a detailed prompt.
 
-Calls the Gemini API to generate a comprehensive 5 C's credit analysis and a final "YES" or "NO" recommendation.
+4. Calls the Gemini API to generate a comprehensive 5 C's credit analysis and a final "YES" or "NO" recommendation.
 
-Response: The endpoint returns a single JSON object containing the list of results, with each result including the predicted credit score and the detailed recommendation from Gemini.
+5. Response: The endpoint returns a single JSON object containing the list of results, with each result including the predicted credit score and the detailed recommendation from Gemini.
 
-Local Project Structure
+**Local Project Structure**
 This project uses a structured layout to separate the container environment from the deployment logic.
 
 ```
@@ -40,7 +40,7 @@ sagemaker_training_project/
 └── 📜 launch_training_job.ipynb    # Jupyter Notebook to control the entire workflow
 ```
 
-Step-by-Step Deployment Guide
+## Step-by-Step Deployment Guide
 Follow these steps to deploy the entire stack from scratch.
 
 1. Prerequisites
@@ -64,28 +64,28 @@ These commands build your custom container and upload it to Amazon's Elastic Con
 
 For Windows (using PowerShell):
 
-# Set your AWS Account ID and Region
+### Set your AWS Account ID and Region
 ```shell
 $env:ACCOUNT_ID = (aws sts get-caller-identity --query Account --output text)
 $env:REGION = "eu-north-1" # Change to your region
 ```
 
-# Log in to ECR
+### Log in to ECR
 ```shell
 aws ecr get-login-password --region $env:REGION | docker login --username AWS --password-stdin "$($env:ACCOUNT_ID).dkr.ecr.$($env:REGION).amazonaws.com"
 ```
 
-# Navigate to your container directory
+### Navigate to your container directory
 ```shell
 cd sagemaker_training_project/container
 ```
 
-# Build the image
+### Build the image
 ```shell
 docker build -t loan-recommender:latest -f Dockerfile.train .
 ```
 
-# Tag and Push
+### Tag and Push
 ```shell
 docker tag loan-recommender:latest "$($env:ACCOUNT_ID).dkr.ecr.$($env:REGION)[.amazonaws.com/loan-recommender:latest](https://.amazonaws.com/loan-recommender:latest)"
 docker push "$($env:ACCOUNT_ID).dkr.ecr.$($env:REGION)[.amazonaws.com/loan-recommender:latest](https://.amazonaws.com/loan-recommender:latest)"

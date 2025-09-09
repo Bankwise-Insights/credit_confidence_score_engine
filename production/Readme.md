@@ -31,14 +31,12 @@ sagemaker_training_project/
 |-- 📂 container/
 |   |-- Dockerfile.train         # Blueprint for the training & serving container
 |   |-- requirements.txt       # Python dependencies (sklearn, pandas, fastapi, etc.)
-|   |-- sagemaker_training.py    # Script for model training and selection
+|   |-- credit_scoring.py    # Script for model training and selection
 |   |-- predictor.py           # FastAPI server for inference
 |   |-- train                  # Executable script to start training
 |   └── serve                  # Executable script to start the FastAPI server
 |
-|-- 📂 data/
-|   └── loans.csv              # Raw training dataset
-|
+|-- invoke.py                  #for testing the endpoint     
 └── 📜 launch_training_job.ipynb    # Jupyter Notebook to control the entire workflow
 ```
 

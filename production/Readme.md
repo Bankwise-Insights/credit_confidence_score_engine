@@ -95,21 +95,21 @@ docker push "$($env:ACCOUNT_ID).dkr.ecr.$($env:REGION)[.amazonaws.com/loan-recom
 Ensure your loans.csv dataset from the data/ folder is uploaded to an S3 bucket that your SageMaker role can access.
 
 5. Launch Training & Deployment
-Open and run the launch_training_job.ipynb notebook from a SageMaker Notebook Instance. This notebook will:
+    Open and run the launch_training_job.ipynb notebook from a SageMaker Notebook Instance. This notebook will:
+    
+    Define the ECR image_uri using the image you just pushed.
+    
+    Define the S3 path to your loans.csv data.
+    
+    Set the GEMINI_API_KEY as an environment variable for the container.
+    
+    Create a SageMaker Estimator object.
+    
+    Launch the training job by calling estimator.fit({'train': s3_data_path}).
+    
+    Deploy the resulting model artifact to a SageMaker Serverless Endpoint by calling estimator.deploy().
 
-Define the ECR image_uri using the image you just pushed.
-
-Define the S3 path to your loans.csv data.
-
-Set the GEMINI_API_KEY as an environment variable for the container.
-
-Create a SageMaker Estimator object.
-
-Launch the training job by calling estimator.fit({'train': s3_data_path}).
-
-Deploy the resulting model artifact to a SageMaker Serverless Endpoint by calling estimator.deploy().
-
-How to Invoke the Endpoint
+**How to Invoke the Endpoint**
 Use the invoke.py script to send requests to your deployed endpoint. The script sends a list of applicant dictionaries and prints the results.
 
 Example invoke.py Usage:

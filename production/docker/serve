@@ -1,0 +1,16 @@
+#!/bin/bash
+# This script is the entrypoint for SageMaker inference endpoints.
+# It starts a Uvicorn ASGI server to serve predictions with FastAPI.
+
+set -e
+
+echo "Starting model server with Uvicorn..."
+
+# Start Uvicorn, a high-performance ASGI server.
+# --host: Binds the server to listen on all network interfaces.
+# --port: The port to listen on (SageMaker expects 8080).
+# --workers: The number of worker processes for handling requests.
+# predictor:app: Points Uvicorn to the 'app' object in the 'predictor.py' file.
+uvicorn --host 0.0.0.0 --port 8080 --workers 3 predictor:app
+
+echo "Model server stopped."

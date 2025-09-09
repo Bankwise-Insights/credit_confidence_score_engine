@@ -1,0 +1,16 @@
+#!/bin/bash
+# This script is the entrypoint for SageMaker training jobs.
+# It executes the main Python training script.
+
+# Set the script to exit immediately if a command exits with a non-zero status.
+set -e
+
+echo "Starting SageMaker training job..."
+
+# Call the Python script to perform the training.
+# SageMaker passes hyperparameters as command-line arguments to this script.
+python /opt/ml/code/credit_scoring.py "$@"
+
+echo "SageMaker training job completed."
+
+ 

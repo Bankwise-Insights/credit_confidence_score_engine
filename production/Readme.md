@@ -14,7 +14,7 @@ The final architecture is streamlined for simplicity and performance:
 
 1. Contains a FastAPI web server (predictor.py) to handle inference requests.
 
-2 . Loads a pre-trained scikit-learn model (model.joblib) to predict a credit score for each applicant.
+2. Loads a pre-trained scikit-learn model (model.joblib) to predict a credit score for each applicant.
 
 3. Uses the predicted score and the original applicant data to construct a detailed prompt.
 

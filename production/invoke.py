@@ -3,7 +3,7 @@ import json
 
 # --- Configuration ---
 # IMPORTANT: Replace these with your actual endpoint name and AWS region
-ENDPOINT_NAME = 'loan-recommendation-service' 
+ENDPOINT_NAME = 'loan-recommender-service' 
 AWS_REGION = 'eu-north-1' 
 
 # Create a SageMaker runtime client
